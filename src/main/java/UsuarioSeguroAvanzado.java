@@ -39,5 +39,52 @@ public class UsuarioSeguroAvanzado {
 
     // Métodos de negocio
 
-    
+    public boolean autenticar(String passwordIngresada) {
+        if (bloqueado) {
+            return false;
+        }
+        if (this.password.equals(passwordIngresada)) {
+            intentosFallidos = 0;
+            accesoExitoso = true;
+            return true;
+        } else {
+            intentosFallidos++;
+            if (intentosFallidos >= maxIntentos) {
+                bloqueado = true;
+            }
+            return false;
+        }
+    }
+
+    public void reiniciarAcceso() {
+        intentosFallidos = 0;
+        bloqueado = false;
+    }
+
+    public boolean cambiarPassword(String actual, String nueva) {
+        if (bloqueado) {
+            return false;
+        }
+        if (!this.password.equals(actual)) {
+            return false;
+        }
+        if (!validarPasswordSegura(nueva)) {
+            return false;
+        }
+        this.password = nueva;
+        return true;
+    }
+
+    public boolean validarPasswordSegura(String nueva) {
+        if (nueva == null || nueva.length() < 8) {
+            return false;
+        }
+        boolean tieneMayuscula = false;
+        boolean tieneNumero = false;
+        for (char c : nueva.toCharArray()) {
+            if (Character.isUpperCase(c)) tieneMayuscula = true;
+            if (Character.isDigit(c)) tieneNumero = true;
+        }
+        return tieneMayuscula && tieneNumero;
+    }
 }
