@@ -16,5 +16,28 @@ public class UsuarioSeguroAvanzado {
         this.maxIntentos = (maxIntentos <= 0) ? 3 : maxIntentos;
     }
 
- 
+    // Métodos accesorios
+    public String getUsername() {
+        return username;
+    }
+
+    public int getIntentosFallidos() {
+        return intentosFallidos;
+    }
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public int getMaxIntentos() {
+        return maxIntentos;
+    }
+
+    public boolean isAccesoExitoso() {
+        return accesoExitoso;
+    }
+
+    // Métodos de negocio
+
+    
 }
